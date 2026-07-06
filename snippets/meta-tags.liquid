@@ -35,11 +35,6 @@
   elsif request.page_type == 'password'
     assign og_url = request.origin
   endif
-
-  if request.page_type == 'index'
-    assign og_title = "Josh's Widgets | Cardo Helmet Adapter Mounts & Practical Parts"
-    assign og_description = 'Shop helmet-specific Cardo adapter mounts designed for clean, integrated installation on select HJC, Shoei, NEXX, and Scorpion helmets. Free U.S. shipping.'
-  endif
 %}
 
 <meta
@@ -113,14 +108,10 @@
 >
 
 <title>
-  {%- if request.page_type == 'index' -%}
-    Josh's Widgets | Cardo Helmet Adapter Mounts & Practical Parts
-  {%- else -%}
-    {{ page_title }}
-    {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
-    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
-  {%- endif -%}
+  {{ page_title }}
+  {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+  {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+  {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
 </title>
 
 <link
@@ -128,9 +119,9 @@
   href="{{ canonical_url }}"
 >
 
-{% if page_description or request.page_type == 'index' %}
+{% if page_description %}
   <meta
     name="description"
-    content="{{ og_description | escape }}"
+    content="{{ page_description | escape }}"
   >
 {% endif %}

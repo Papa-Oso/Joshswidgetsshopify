@@ -39,7 +39,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>The link may be incorrect, or the page has been removed. </p>",
+            "text": "<p>That page may have moved. Use search or head back to the shop to find helmet adapters and practical parts.</p>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
@@ -63,7 +63,7 @@
           "type": "button",
           "name": "t:names.button",
           "settings": {
-            "label": "Continue shopping",
+            "label": "Shop Helmet Adapters",
             "link": "shopify://collections/all",
             "open_in_new_tab": false,
             "style_class": "button",
@@ -130,7 +130,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>Discover something new</p>",
+                "text": "<p>Shop Practical Parts</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",

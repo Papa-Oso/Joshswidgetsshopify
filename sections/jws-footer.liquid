@@ -1,0 +1,89 @@
+<div class="jws-footer">
+  <div class="jws-footer__inner">
+    <div class="jws-footer__grid">
+      <div>
+        <a class="jws-logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+          <span class="jws-logo__mark">JW</span>
+          <span class="jws-logo__text">
+            <span class="jws-logo__name">Josh's Widgets</span>
+            <span class="jws-logo__tagline">Practical parts made for specific problems.</span>
+          </span>
+        </a>
+        <p>Helmet-specific Cardo adapter mounts and practical enthusiast parts designed, finished, inspected, and supported by an independent maker.</p>
+        {% form 'customer', class: 'jws-newsletter' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <label class="visually-hidden" for="FooterNewsletterEmail">Email</label>
+          <div class="jws-newsletter__row">
+            <input id="FooterNewsletterEmail" type="email" name="contact[email]" autocomplete="email" placeholder="Email address" required>
+            <button class="button" type="submit">Sign up</button>
+          </div>
+          {% if form.posted_successfully? %}
+            <p>Thanks for signing up.</p>
+          {% elsif form.errors %}
+            <p>{{ form.errors | default_errors }}</p>
+          {% endif %}
+        {% endform %}
+      </div>
+
+      <div>
+        <h3>Shop</h3>
+        <ul>
+          <li><a href="/collections/helmet-adapters">Helmet Adapters</a></li>
+          <li><a href="/collections/bmw-z3-m-roadster-parts">BMW Z3 &amp; M Roadster Parts</a></li>
+          <li><a href="/collections/other-practical-parts">Other Practical Parts</a></li>
+          <li><a href="/collections/all">All Products</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Help</h3>
+        <ul>
+          <li><a href="/pages/find-your-fit">Find Your Fit</a></li>
+          <li><a href="/pages/installation-guides">Installation Guides</a></li>
+          <li><a href="/pages/support">Support</a></li>
+          <li><a href="/pages/shipping-policy">Shipping</a></li>
+          <li><a href="/pages/return-policy">Returns</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>About</h3>
+        <ul>
+          <li><a href="/pages/about">About Josh's Widgets</a></li>
+          <li><a href="/pages/support">Contact</a></li>
+          <li><a href="/pages/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/pages/terms-of-service">Terms of Service</a></li>
+          <li><a href="/pages/accessibility-statement">Accessibility Statement</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="jws-footer__legal">
+      <div class="jws-payment-icons">
+        <span class="visually-hidden">Payment methods</span>
+        <ul role="list">
+          {% for type in shop.enabled_payment_types %}
+            <li>{{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <p>Cardo, Shoei, HJC, NEXX, Scorpion, BMW, and other referenced brand names are trademarks of their respective owners. Josh's Widgets is an independent maker and is not affiliated with or endorsed by those brands unless explicitly stated.</p>
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}.</p>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Josh's Widgets footer",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [],
+  "presets": [
+    {
+      "name": "Josh's Widgets footer"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "jws-policy-page",
+      "settings": {
+        "heading": "Return Policy",
+        "intro": "Confirm fitment before ordering and review the current merchant-approved return policy.",
+        "policy_type": "returns"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

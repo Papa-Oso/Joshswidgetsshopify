@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "jws-page-installation",
+      "settings": {
+        "helmet_collection": "helmet-adapters",
+        "bmw_collection": "bmw-z3-m-roadster-parts",
+        "other_collection": "other-practical-parts"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

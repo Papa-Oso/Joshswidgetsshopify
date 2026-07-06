@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "jws-policy-page",
+      "settings": {
+        "heading": "Privacy Policy",
+        "intro": "Review the current privacy policy for how store information is handled.",
+        "policy_type": "general"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

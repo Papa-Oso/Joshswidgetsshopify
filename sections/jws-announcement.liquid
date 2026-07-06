@@ -1,0 +1,25 @@
+<div class="jws-announcement" role="region" aria-label="Store announcement">
+  {{ section.settings.text }}
+</div>
+
+{% schema %}
+{
+  "name": "Josh's Widgets announcement",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Announcement text",
+      "default": "FREE U.S. SHIPPING ON ALL PRODUCTS"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Josh's Widgets announcement"
+    }
+  ]
+}
+{% endschema %}

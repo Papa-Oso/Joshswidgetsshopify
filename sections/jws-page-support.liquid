@@ -1,0 +1,101 @@
+<div class="jws-page">
+  <section class="jws-page-hero">
+    <div class="jws-page-hero__inner">
+      <p class="jws-eyebrow">Support</p>
+      <h1>Support</h1>
+      <p>Need help choosing the right adapter or installing the one you received? Send your exact helmet model and Cardo device so we can point you in the right direction.</p>
+    </div>
+  </section>
+
+  <section class="jws-page-body">
+    <div class="jws-page-body__inner jws-split">
+      <div>
+        <h2>Contact Josh's Widgets</h2>
+        <p>For fitment help, include the helmet brand, exact model, and exact Cardo communicator. Photos can be shared by link if helpful.</p>
+        <div class="jws-grid">
+          <article class="jws-guide-card"><h3>Confirm Your Fitment</h3><p>Check your helmet and communicator before ordering.</p></article>
+          <article class="jws-guide-card"><h3>Installation Help</h3><p>Use the product-specific guide for your adapter.</p></article>
+          <article class="jws-guide-card"><h3>Order, Shipping, and Returns</h3><p>Use the current Shopify order and policy information for order-specific questions.</p></article>
+        </div>
+      </div>
+
+      {% form 'contact', class: 'jws-form' %}
+        <input type="hidden" name="contact[Reason]" value="Support">
+        <div class="jws-form__grid">
+          <div class="jws-field">
+            <label for="SupportName">Name</label>
+            <input id="SupportName" type="text" name="contact[name]" autocomplete="name" required>
+          </div>
+          <div class="jws-field">
+            <label for="SupportEmail">Email</label>
+            <input id="SupportEmail" type="email" name="contact[email]" autocomplete="email" required>
+          </div>
+          <div class="jws-field">
+            <label for="SupportHelmet">Helmet Model</label>
+            <input id="SupportHelmet" type="text" name="contact[Helmet Model]">
+          </div>
+          <div class="jws-field">
+            <label for="SupportCardo">Cardo Device</label>
+            <input id="SupportCardo" type="text" name="contact[Cardo Device]">
+          </div>
+          <div class="jws-field jws-field--full">
+            <label for="SupportMessage">Message</label>
+            <textarea id="SupportMessage" name="contact[body]" required></textarea>
+          </div>
+        </div>
+        <button class="button" type="submit">Send message</button>
+        {% if form.posted_successfully? %}
+          <p>Thanks. Your message was sent.</p>
+        {% elsif form.errors %}
+          <p>{{ form.errors | default_errors }}</p>
+        {% endif %}
+      {% endform %}
+    </div>
+  </section>
+
+  <section class="jws-section jws-section--white">
+    <div class="jws-section__inner">
+      <div class="jws-section__header">
+        <h2>FAQs</h2>
+      </div>
+      <div class="jws-faq">
+        <details><summary>How do I know which adapter fits my helmet?</summary><div><p>Match the exact helmet model and Cardo communicator listed on the product page. If either detail is uncertain, contact Josh's Widgets before ordering.</p></div></details>
+        <details><summary>Are these adapters universal?</summary><div><p>No. Helmet adapters are model-specific and communicator-specific.</p></div></details>
+        <details><summary>Is the Cardo communicator included?</summary><div><p>No. Cardo communicators and cradles are not included unless a product page specifically says otherwise.</p></div></details>
+        <details><summary>Does this fit Packtalk Edge, Neo, Pro, Bold, Freecom, or Spirit?</summary><div><p>Compatibility depends on the exact adapter. Do not assume compatibility between Cardo families unless the product page confirms it.</p></div></details>
+        <details><summary>Do I need tools for installation?</summary><div><p>Tool requirements vary by product and helmet. Use the product-specific installation guide.</p></div></details>
+        <details><summary>Is the factory helmet communication cover included?</summary><div><p>No, not unless the product page specifically states that it is included.</p></div></details>
+        <details><summary>What if I order the wrong adapter?</summary><div><p>Review the current return policy and contact support. The safest move is to confirm fitment before checkout.</p></div></details>
+        <details><summary>Where can I find installation instructions?</summary><div><p>Use the Installation Guides page or the guide link on the product page when available.</p></div></details>
+        <details><summary>Do you ship internationally?</summary><div><p>Free shipping applies to U.S. orders. International shipping may be available at checkout if configured, and duties, taxes, or import fees may apply.</p></div></details>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "Are these adapters universal?", "acceptedAnswer": {"@type": "Answer", "text": "No. Helmet adapters are model-specific and communicator-specific."}},
+      {"@type": "Question", "name": "Is the Cardo communicator included?", "acceptedAnswer": {"@type": "Answer", "text": "No. Cardo communicators and cradles are not included unless a product page specifically says otherwise."}},
+      {"@type": "Question", "name": "Do you ship internationally?", "acceptedAnswer": {"@type": "Answer", "text": "Free shipping applies to U.S. orders. International shipping may be available at checkout if configured, and duties, taxes, or import fees may apply."}}
+    ]
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Support page",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [],
+  "presets": [
+    {
+      "name": "Support page"
+    }
+  ]
+}
+{% endschema %}

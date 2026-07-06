@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "jws-page-support",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

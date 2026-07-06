@@ -1,0 +1,108 @@
+{% liquid
+  assign helmet_collection = section.settings.helmet_collection
+  if helmet_collection == blank
+    assign helmet_collection = collections['helmet-adapters']
+  endif
+  assign bmw_collection = section.settings.bmw_collection
+  if bmw_collection == blank
+    assign bmw_collection = collections['bmw-z3-m-roadster-parts']
+  endif
+  assign other_collection = section.settings.other_collection
+  if other_collection == blank
+    assign other_collection = collections['other-practical-parts']
+  endif
+%}
+
+<div class="jws-page">
+  <section class="jws-page-hero">
+    <div class="jws-page-hero__inner">
+      <p class="jws-eyebrow">Product-specific instructions</p>
+      <h1>Installation Guides</h1>
+      <p>Each adapter installs differently depending on the helmet's factory communication system. Choose your adapter below for the correct instructions.</p>
+    </div>
+  </section>
+
+  <section class="jws-page-body">
+    <div class="jws-page-body__inner">
+      <div class="jws-alert">
+        <p><strong>Important:</strong> Do not use generic instructions for a helmet adapter. Match the guide to your exact product, helmet, and Cardo communicator before removing any factory communication cover.</p>
+      </div>
+
+      <div class="jws-section__header" style="margin-top: 2rem;">
+        <h2>Helmet Adapter Guides</h2>
+        <p>Guide links appear when an installation guide URL is added to the product metafields.</p>
+      </div>
+      <div class="jws-grid jws-grid--cards">
+        {% if helmet_collection != blank and helmet_collection.products_count > 0 %}
+          {% for product in helmet_collection.products limit: 50 %}
+            {% assign guide_url = product.metafields.custom.installation_guide_url | metafield_text %}
+            <article class="jws-guide-card">
+              <p class="jws-eyebrow">{{ product.metafields.custom.helmet_brand | metafield_text | default: 'Helmet adapter' }}</p>
+              <h3>{{ product.title }}</h3>
+              <p><strong>Compatible model:</strong> {{ product.metafields.custom.helmet_model | metafield_text | default: 'See product page' }}</p>
+              <p><strong>Cardo unit:</strong> {{ product.metafields.custom.cardo_compatible_devices | metafield_text | default: 'See product page' }}</p>
+              {% if guide_url != blank %}
+                <a class="jws-link" href="{{ guide_url }}">Open guide</a>
+              {% else %}
+                <a class="jws-link" href="{{ product.url }}">View product details</a>
+              {% endif %}
+            </article>
+          {% endfor %}
+        {% else %}
+          <article class="jws-guide-card">
+            <h3>Helmet adapter guides</h3>
+            <p>Product-specific installation guides will appear here as they are published.</p>
+          </article>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <section class="jws-section jws-section--white">
+    <div class="jws-section__inner">
+      <div class="jws-section__header">
+        <h2>Guide Categories</h2>
+        <p>Use these categories to organize product-specific instructions as the catalog grows.</p>
+      </div>
+      <div class="jws-grid jws-grid--cards">
+        <article class="jws-guide-card"><h3>HJC</h3><p>Helmet adapter guides for HJC products with confirmed product-specific instructions.</p></article>
+        <article class="jws-guide-card"><h3>Shoei</h3><p>Guides for Shoei Neotec II, GT-Air II, and compatible adapter products when available.</p></article>
+        <article class="jws-guide-card"><h3>NEXX</h3><p>Guides for NEXX X-COM3 compatible adapter products when available.</p></article>
+        <article class="jws-guide-card"><h3>Scorpion</h3><p>Guides for Scorpion EXO-COM compatible adapter products when available.</p></article>
+        <article class="jws-guide-card"><h3>BMW Parts</h3><p>Installation notes for BMW Z3 and M Roadster parts when product-specific guides are available.</p></article>
+        <article class="jws-guide-card"><h3>Other Products</h3><p>Instructions for kayak accessories and other practical parts when product-specific guides are available.</p></article>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Installation Guides page",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "collection",
+      "id": "helmet_collection",
+      "label": "Helmet adapter collection"
+    },
+    {
+      "type": "collection",
+      "id": "bmw_collection",
+      "label": "BMW collection"
+    },
+    {
+      "type": "collection",
+      "id": "other_collection",
+      "label": "Other parts collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Installation Guides page"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,430 @@
+{% liquid
+  assign helmet_collection = section.settings.helmet_collection
+  if helmet_collection == blank
+    assign helmet_collection = collections['helmet-adapters']
+  endif
+
+  assign bmw_collection = section.settings.bmw_collection
+  if bmw_collection == blank
+    assign bmw_collection = collections['bmw-z3-m-roadster-parts']
+  endif
+
+  assign other_collection = section.settings.other_collection
+  if other_collection == blank
+    assign other_collection = collections['other-practical-parts']
+  endif
+
+  assign kayak_collection = section.settings.kayak_collection
+  if kayak_collection == blank
+    assign kayak_collection = collections['kayak-accessories']
+  endif
+
+  assign hero_product_image = blank
+  if helmet_collection != blank
+    for product in helmet_collection.products limit: 1
+      if product.featured_image
+        assign hero_product_image = product.featured_image
+        break
+      endif
+    endfor
+  endif
+  assign hero_image = section.settings.hero_image | default: hero_product_image
+  assign helmet_url = '/collections/helmet-adapters'
+  if helmet_collection != blank
+    assign helmet_url = helmet_collection.url
+  endif
+%}
+
+<section class="jws-hero">
+  <div class="jws-hero__grid">
+    <div class="jws-hero__content">
+      <p class="jws-eyebrow">Helmet-specific Cardo adapter mounts</p>
+      <h1>A Cleaner Way to Mount Your Cardo</h1>
+      <p>Helmet-specific, precision 3D-printed adapters designed to mount compatible Cardo communicators directly to select factory helmet communication locations.</p>
+      <div class="jws-hero__actions">
+        <a class="button" href="{{ helmet_url }}">Shop Helmet Adapters</a>
+        <a class="button-secondary" href="/pages/find-your-fit">Find Your Fit</a>
+      </div>
+      <ul class="jws-hero__proof" aria-label="Store highlights">
+        <li>Free U.S. Shipping</li>
+        <li>Helmet-Specific Fitment</li>
+        <li>Designed by an Independent Maker</li>
+      </ul>
+    </div>
+
+    <div class="jws-hero__media">
+      {% if hero_image %}
+        {{
+          hero_image
+          | image_url: width: 1800
+          | image_tag:
+            loading: 'eager',
+            fetchpriority: 'high',
+            alt: section.settings.hero_alt,
+            sizes: '(min-width: 750px) 55vw, 100vw'
+        }}
+      {% else %}
+        <div class="jws-fit-graphic" role="img" aria-label="Abstract fitment checklist graphic">
+          <div class="jws-fit-graphic__plate">
+            <div class="jws-fit-graphic__line"><span>Helmet model</span><span class="jws-fit-graphic__value">Exact match required</span></div>
+            <div class="jws-fit-graphic__line"><span>Cardo unit</span><span class="jws-fit-graphic__value">Confirm cradle style</span></div>
+            <div class="jws-fit-graphic__line"><span>Mounting area</span><span class="jws-fit-graphic__value">Factory comm location</span></div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="jws-section jws-section--white" data-jws-fit-finder>
+  <div class="jws-section__inner">
+    <div class="jws-section__header">
+      <p class="jws-eyebrow">Compatibility first</p>
+      <h2>Find the Right Adapter for Your Setup</h2>
+      <p>Choose your helmet, confirm your Cardo communicator, and shop only the adapters built for your setup. These mounts are model-specific and not universal.</p>
+    </div>
+
+    <div class="jws-finder">
+      <div class="jws-finder__grid">
+        <div class="jws-field">
+          <label for="HomeHelmetBrand">Helmet brand</label>
+          <select id="HomeHelmetBrand" data-jws-filter="helmetBrand">
+            <option value="">Any brand</option>
+            <option value="HJC">HJC</option>
+            <option value="Shoei">Shoei</option>
+            <option value="NEXX">NEXX</option>
+            <option value="Scorpion">Scorpion</option>
+          </select>
+        </div>
+        <div class="jws-field">
+          <label for="HomeHelmetModel">Helmet model</label>
+          <select id="HomeHelmetModel" data-jws-filter="helmetModel">
+            <option value="">Any model</option>
+            <option value="HJC">HJC factory communication mount</option>
+            <option value="Neotec II">Shoei Neotec II</option>
+            <option value="GT-Air II">Shoei GT-Air II</option>
+            <option value="X-COM3">NEXX X-COM3</option>
+            <option value="EXO-COM">Scorpion EXO-COM</option>
+          </select>
+        </div>
+        <div class="jws-field">
+          <label for="HomeCardo">Cardo communicator</label>
+          <select id="HomeCardo" data-jws-filter="cardo">
+            <option value="">Any Cardo unit</option>
+            <option value="Packtalk Edge">Packtalk Edge</option>
+            <option value="Packtalk Neo">Packtalk Neo</option>
+            <option value="Packtalk Pro">Packtalk Pro</option>
+            <option value="Packtalk Custom">Packtalk Custom</option>
+            <option value="Packtalk Bold">Packtalk Bold</option>
+            <option value="Freecom">Freecom</option>
+            <option value="Spirit">Spirit</option>
+            <option value="Spirit HD">Spirit HD</option>
+          </select>
+        </div>
+        <div class="jws-field">
+          <label for="HomeAdapterType">Adapter type</label>
+          <select id="HomeAdapterType" data-jws-filter="adapterType">
+            <option value="">Any adapter</option>
+            <option value="Helmet adapter">Helmet adapter</option>
+            <option value="Edge">Packtalk Edge-style</option>
+            <option value="Bold">Packtalk Bold</option>
+            <option value="Freecom">Freecom / Spirit</option>
+          </select>
+        </div>
+      </div>
+      <div class="jws-help-links">
+        <span data-jws-count></span>
+        <button type="button" class="button-secondary" data-jws-clear>Clear filters</button>
+        <a class="jws-link" href="/pages/find-your-fit">Not sure what fits? View the compatibility guide.</a>
+        <a class="jws-link" href="/pages/support">Still unsure? Send us your helmet model and Cardo device before ordering.</a>
+      </div>
+    </div>
+
+    {% if helmet_collection != blank and helmet_collection.products_count > 0 %}
+      <div class="jws-grid jws-grid--cards" style="margin-top: 1.25rem;">
+        {% for product in helmet_collection.products limit: 6 %}
+          {% render 'jws-product-card', product: product %}
+        {% endfor %}
+      </div>
+      <div class="jws-empty-state" data-jws-empty hidden>
+        <p>No matching products are visible for that exact combination. Check the full compatibility guide or contact Josh before ordering.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% assign brand_collection_count = 0 %}
+{% if section.settings.hjc_collection != blank and section.settings.hjc_collection.products_count > 0 %}{% assign brand_collection_count = brand_collection_count | plus: 1 %}{% endif %}
+{% if section.settings.shoei_collection != blank and section.settings.shoei_collection.products_count > 0 %}{% assign brand_collection_count = brand_collection_count | plus: 1 %}{% endif %}
+{% if section.settings.nexx_collection != blank and section.settings.nexx_collection.products_count > 0 %}{% assign brand_collection_count = brand_collection_count | plus: 1 %}{% endif %}
+{% if section.settings.scorpion_collection != blank and section.settings.scorpion_collection.products_count > 0 %}{% assign brand_collection_count = brand_collection_count | plus: 1 %}{% endif %}
+
+{% if brand_collection_count > 0 %}
+  <section class="jws-section">
+    <div class="jws-section__inner">
+      <div class="jws-section__header">
+        <p class="jws-eyebrow">Shop by helmet brand</p>
+        <h2>Start With the Helmet You Already Own</h2>
+        <p>Each brand collection only appears here when products are live in Shopify.</p>
+      </div>
+      <div class="jws-grid jws-grid--cards">
+        {% for brand_collection in (1..4) %}
+          {% case forloop.index %}
+            {% when 1 %}{% assign collection_card = section.settings.hjc_collection %}{% assign label = 'HJC' %}
+            {% when 2 %}{% assign collection_card = section.settings.shoei_collection %}{% assign label = 'Shoei' %}
+            {% when 3 %}{% assign collection_card = section.settings.nexx_collection %}{% assign label = 'NEXX' %}
+            {% when 4 %}{% assign collection_card = section.settings.scorpion_collection %}{% assign label = 'Scorpion' %}
+          {% endcase %}
+          {% if collection_card != blank and collection_card.products_count > 0 %}
+            <a class="jws-collection-card" href="{{ collection_card.url }}">
+              <span class="jws-collection-card__media">
+                {% if collection_card.featured_image %}
+                  {{ collection_card.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: collection_card.title }}
+                {% else %}
+                  {% for product in collection_card.products limit: 1 %}
+                    {% if product.featured_image %}
+                      {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: product.title }}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+              </span>
+              <span class="jws-collection-card__body">
+                <h3>{{ label }} Cardo Adapters</h3>
+                <p>Confirm exact helmet model and communicator type before ordering.</p>
+              </span>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+<section class="jws-section jws-section--white">
+  <div class="jws-section__inner">
+    <div class="jws-section__header">
+      <p class="jws-eyebrow">Featured adapters</p>
+      <h2>Helmet-Specific Mounts for Compatible Cardo Setups</h2>
+      <p>Product pages carry the final compatibility details. Do not assume one Cardo family fits another cradle style.</p>
+    </div>
+    {% if helmet_collection != blank and helmet_collection.products_count > 0 %}
+      <div class="jws-grid jws-grid--four">
+        {% for product in helmet_collection.products limit: 4 %}
+          {% render 'jws-product-card', product: product %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="jws-alert">
+        <p>Helmet adapter products are being updated. Contact Josh's Widgets if you need help confirming a specific helmet and Cardo setup.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="jws-section">
+  <div class="jws-section__inner">
+    <div class="jws-section__header">
+      <p class="jws-eyebrow">Why Josh's Widgets</p>
+      <h2>Built Around the Mounting Point Your Helmet Already Has</h2>
+    </div>
+    <div class="jws-grid jws-grid--cards">
+      <article class="jws-benefit">
+        <h3>Helmet-Specific Fitment</h3>
+        <p>Each adapter is designed around a specific helmet communication location and compatible Cardo mounting style.</p>
+      </article>
+      <article class="jws-benefit">
+        <h3>Cleaner Than a Generic Mount</h3>
+        <p>Many adapters use the helmet's factory communication location for a cleaner, lower-profile installation than generic adhesive pads or clamp mounts.</p>
+      </article>
+      <article class="jws-benefit">
+        <h3>Designed by an Independent Maker</h3>
+        <p>Products are designed, printed, finished, inspected, and supported directly by Josh.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="jws-section jws-section--dark">
+  <div class="jws-section__inner">
+    <div class="jws-section__header">
+      <p class="jws-eyebrow">How it works</p>
+      <h2>From Factory Cover to Integrated Mount</h2>
+    </div>
+    <div class="jws-grid jws-grid--cards">
+      <article class="jws-step">
+        <span class="jws-step__number">1</span>
+        <h3>Confirm Your Helmet and Cardo Device</h3>
+        <p>Check that your helmet model and Cardo communicator match the product compatibility information.</p>
+      </article>
+      <article class="jws-step">
+        <span class="jws-step__number">2</span>
+        <h3>Remove the Factory Communication Cover</h3>
+        <p>Follow the product-specific installation instructions for your helmet and adapter.</p>
+      </article>
+      <article class="jws-step">
+        <span class="jws-step__number">3</span>
+        <h3>Install the Adapter and Attach Your Cardo Cradle</h3>
+        <p>The adapter creates a mounting point for the compatible Cardo setup listed on the product page.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="jws-section jws-section--white">
+  <div class="jws-section__inner">
+    <div class="jws-section__header">
+      <p class="jws-eyebrow">More practical parts</p>
+      <h2>More Practical Parts for Real Problems</h2>
+      <p>Josh's Widgets also makes useful parts for BMW Z3 and M Roadster owners, kayakers, and enthusiasts looking for simple solutions to frustrating small problems.</p>
+    </div>
+    <div class="jws-grid jws-grid--cards">
+      {% if bmw_collection != blank and bmw_collection.products_count > 0 %}
+        <a class="jws-collection-card" href="{{ bmw_collection.url }}">
+          <span class="jws-collection-card__body">
+            <h3>BMW Z3 &amp; M Roadster Parts</h3>
+            <p>Repair clips, block-off plates, gauge pods, and useful owner-focused parts.</p>
+          </span>
+        </a>
+      {% endif %}
+      {% if kayak_collection != blank and kayak_collection.products_count > 0 %}
+        <a class="jws-collection-card" href="{{ kayak_collection.url }}">
+          <span class="jws-collection-card__body">
+            <h3>Kayak Accessories</h3>
+            <p>Heavy-duty clips and practical accessories for real use.</p>
+          </span>
+        </a>
+      {% endif %}
+      {% if other_collection != blank and other_collection.products_count > 0 %}
+        <a class="jws-collection-card" href="{{ other_collection.url }}">
+          <span class="jws-collection-card__body">
+            <h3>Other Practical Parts</h3>
+            <p>Small, purpose-built accessories for vehicles, gear, and equipment.</p>
+          </span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="jws-section">
+  <div class="jws-section__inner jws-split">
+    <div>
+      <p class="jws-eyebrow">About the shop</p>
+      <h2>Designed for People Who Notice the Details</h2>
+      <p>Josh's Widgets started with a simple idea: accessories should look like they belong where they are installed. Josh designs practical parts for riders, drivers, and enthusiasts who want a cleaner, more purposeful solution than a workaround. Every product is designed, printed, finished, inspected, and supported with fitment and everyday use in mind.</p>
+      <a class="button-secondary" href="/pages/about">About Josh's Widgets</a>
+    </div>
+    <ol class="jws-process">
+      <li><span>Identify a real-world problem</span></li>
+      <li><span>Design and test the part</span></li>
+      <li><span>Print using appropriate materials</span></li>
+      <li><span>Finish and inspect every piece</span></li>
+      <li><span>Package and ship directly to customers</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="jws-section jws-section--dark">
+  <div class="jws-section__inner jws-split">
+    <div>
+      <p class="jws-eyebrow">Product updates</p>
+      <h2>New Helmet Fitments. New Practical Parts.</h2>
+      <p>Get notified when new adapter fitments, product updates, and useful new parts are released.</p>
+    </div>
+    {% form 'customer', class: 'jws-newsletter' %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <label class="visually-hidden" for="HomeNewsletterEmail">Email</label>
+      <div class="jws-newsletter__row">
+        <input id="HomeNewsletterEmail" type="email" name="contact[email]" autocomplete="email" placeholder="Email address" required>
+        <button class="button" type="submit">Sign up</button>
+      </div>
+      {% if form.posted_successfully? %}
+        <p>Thanks for signing up.</p>
+      {% elsif form.errors %}
+        <p>{{ form.errors | default_errors }}</p>
+      {% endif %}
+    {% endform %}
+  </div>
+</section>
+
+<script src="{{ 'jws-fit-finder.js' | asset_url }}" type="module"></script>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": {{ shop.name | json }},
+    "url": {{ shop.url | json }},
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {{ shop.url | append: routes.search_url | append: "?q={search_term_string}" | json }},
+      "query-input": "required name=search_term_string"
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Josh's Widgets homepage",
+  "enabled_on": {
+    "templates": ["index"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "text",
+      "id": "hero_alt",
+      "label": "Hero image alt text",
+      "default": "Cardo adapter installed at a helmet communication mounting location"
+    },
+    {
+      "type": "collection",
+      "id": "helmet_collection",
+      "label": "Helmet adapter collection"
+    },
+    {
+      "type": "collection",
+      "id": "hjc_collection",
+      "label": "HJC collection"
+    },
+    {
+      "type": "collection",
+      "id": "shoei_collection",
+      "label": "Shoei collection"
+    },
+    {
+      "type": "collection",
+      "id": "nexx_collection",
+      "label": "NEXX collection"
+    },
+    {
+      "type": "collection",
+      "id": "scorpion_collection",
+      "label": "Scorpion collection"
+    },
+    {
+      "type": "collection",
+      "id": "bmw_collection",
+      "label": "BMW collection"
+    },
+    {
+      "type": "collection",
+      "id": "kayak_collection",
+      "label": "Kayak collection"
+    },
+    {
+      "type": "collection",
+      "id": "other_collection",
+      "label": "Other parts collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Josh's Widgets homepage"
+    }
+  ]
+}
+{% endschema %}

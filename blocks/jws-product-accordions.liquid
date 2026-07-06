@@ -1,0 +1,116 @@
+{% liquid
+  assign fit_product = closest.product | default: product
+  assign helmet_brand = fit_product.metafields.custom.helmet_brand | metafield_text
+  assign helmet_model = fit_product.metafields.custom.helmet_model | metafield_text
+  assign helmet_system = fit_product.metafields.custom.helmet_communication_system | metafield_text
+  assign cardo_devices = fit_product.metafields.custom.cardo_compatible_devices | metafield_text
+  assign incompatible = fit_product.metafields.custom.cardo_incompatible_devices | metafield_text
+  assign material = fit_product.metafields.custom.product_material | metafield_text
+  assign installation = fit_product.metafields.custom.installation_method | metafield_text
+  assign included = fit_product.metafields.custom.included_items | metafield_text
+  assign guide_url = fit_product.metafields.custom.installation_guide_url | metafield_text
+  assign video_url = fit_product.metafields.custom.installation_video_url | metafield_text
+  assign warning = fit_product.metafields.custom.compatibility_warning | metafield_text
+%}
+
+<div class="jws-product-accordions" {{ block.shopify_attributes }}>
+  <details open>
+    <summary>Compatibility</summary>
+    <div>
+      <p>Confirm the exact helmet and Cardo setup listed for this product before ordering.</p>
+      <ul>
+        {% if helmet_brand != blank or helmet_model != blank %}
+          <li><strong>Helmet:</strong> {{ helmet_brand }}{% if helmet_brand != blank and helmet_model != blank %} {% endif %}{{ helmet_model }}</li>
+        {% endif %}
+        {% if cardo_devices != blank %}
+          <li><strong>Compatible Cardo units:</strong> {{ cardo_devices }}</li>
+        {% endif %}
+        {% if incompatible != blank %}
+          <li><strong>Not compatible with:</strong> {{ incompatible }}</li>
+        {% endif %}
+        {% if helmet_system != blank %}
+          <li><strong>Installation location:</strong> {{ helmet_system }}</li>
+        {% endif %}
+      </ul>
+      {% if warning != blank %}
+        <div class="jws-alert"><p><strong>Important:</strong> {{ warning }}</p></div>
+      {% endif %}
+    </div>
+  </details>
+
+  <details>
+    <summary>Installation</summary>
+    <div>
+      {% if installation != blank %}
+        <p>{{ installation }}</p>
+      {% else %}
+        <p>Installation varies by helmet and adapter. Use the product-specific guide for this part and do not remove a factory cover unless the guide matches your exact setup.</p>
+      {% endif %}
+      {% if guide_url != blank %}
+        <p><a class="jws-link" href="{{ guide_url }}">Open installation guide</a></p>
+      {% endif %}
+      {% if video_url != blank %}
+        <p><a class="jws-link" href="{{ video_url }}">Watch installation video</a></p>
+      {% endif %}
+    </div>
+  </details>
+
+  <details>
+    <summary>Materials and Manufacturing</summary>
+    <div>
+      {% if material != blank %}
+        <p>{{ material }}</p>
+      {% else %}
+        <p>Material can vary by product. Check the material field or product description for this specific part before ordering.</p>
+      {% endif %}
+      <p>Josh designs, prints, finishes, inspects, packages, and supports these small-batch parts directly.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>What's Included</summary>
+    <div>
+      {% if included != blank %}
+        <p>{{ included }}</p>
+      {% else %}
+        <p>Included items are listed in the product description or variant details for this specific product.</p>
+      {% endif %}
+      <p>Cardo communicator, Cardo cradle, helmet, and factory communication cover are not included unless specifically stated.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Shipping</summary>
+    <div>
+      <p>Free U.S. shipping is included on all products. International shipping, duties, taxes, and import fees may be calculated at checkout if international shipping is enabled.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Returns and Support</summary>
+    <div>
+      <p>Review the current return policy before ordering. If you are unsure about fitment, send your exact helmet model and Cardo device before checkout.</p>
+      <p><a class="jws-link" href="/pages/support">Contact Josh's Widgets</a></p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Important Brand and Fitment Notes</summary>
+    <div>
+      <p>Referenced brand names are trademarks of their respective owners. Josh's Widgets is an independent maker and is not affiliated with or endorsed by Cardo, Shoei, HJC, NEXX, Scorpion, BMW, or other referenced brands unless explicitly stated.</p>
+    </div>
+  </details>
+</div>
+
+{% schema %}
+{
+  "name": "Product fit accordions",
+  "tag": null,
+  "settings": [],
+  "presets": [
+    {
+      "name": "Product fit accordions"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "jws-policy-page",
+      "settings": {
+        "heading": "Accessibility Statement",
+        "intro": "Josh's Widgets aims to keep the storefront clear, readable, and usable across devices.",
+        "policy_type": "general"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "jws-page-fit",
+      "settings": {
+        "helmet_collection": "helmet-adapters"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

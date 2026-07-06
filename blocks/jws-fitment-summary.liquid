@@ -1,0 +1,88 @@
+{% liquid
+  assign fit_product = closest.product | default: product
+  assign helmet_brand = fit_product.metafields.custom.helmet_brand | metafield_text
+  assign helmet_model = fit_product.metafields.custom.helmet_model | metafield_text
+  assign helmet_system = fit_product.metafields.custom.helmet_communication_system | metafield_text
+  assign cardo_devices = fit_product.metafields.custom.cardo_compatible_devices | metafield_text
+  assign incompatible = fit_product.metafields.custom.cardo_incompatible_devices | metafield_text
+  assign included = fit_product.metafields.custom.included_items | metafield_text
+  assign warning = fit_product.metafields.custom.compatibility_warning | metafield_text
+%}
+
+<div class="jws-fitment-summary" {{ block.shopify_attributes }}>
+  <p class="jws-eyebrow">Compatibility check</p>
+  <h2>{{ block.settings.heading }}</h2>
+  <p>{{ block.settings.intro }}</p>
+
+  <dl>
+    {% if helmet_brand != blank or helmet_model != blank %}
+      <div class="jws-fitment-summary__row">
+        <dt>Helmet</dt>
+        <dd>{{ helmet_brand }}{% if helmet_brand != blank and helmet_model != blank %} {% endif %}{{ helmet_model }}</dd>
+      </div>
+    {% endif %}
+    {% if cardo_devices != blank %}
+      <div class="jws-fitment-summary__row">
+        <dt>Compatible Cardo units</dt>
+        <dd>{{ cardo_devices }}</dd>
+      </div>
+    {% endif %}
+    {% if incompatible != blank %}
+      <div class="jws-fitment-summary__row">
+        <dt>Not compatible with</dt>
+        <dd>{{ incompatible }}</dd>
+      </div>
+    {% endif %}
+    {% if helmet_system != blank %}
+      <div class="jws-fitment-summary__row">
+        <dt>Installation location</dt>
+        <dd>{{ helmet_system }}</dd>
+      </div>
+    {% endif %}
+    {% if included != blank %}
+      <div class="jws-fitment-summary__row">
+        <dt>Included</dt>
+        <dd>{{ included }}</dd>
+      </div>
+    {% endif %}
+  </dl>
+
+  {% if warning != blank %}
+    <div class="jws-alert">
+      <p><strong>Important:</strong> {{ warning }}</p>
+    </div>
+  {% else %}
+    <div class="jws-alert">
+      <p><strong>Important:</strong> These adapters are model-specific. Confirm your exact helmet model and exact Cardo communicator before ordering.</p>
+    </div>
+  {% endif %}
+
+  <p>Cardo communicator and cradle are not included unless this product specifically says otherwise.</p>
+  <a class="jws-link" href="/pages/support">Need help confirming fitment?</a>
+</div>
+
+{% schema %}
+{
+  "name": "Fitment summary",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Compatibility"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro",
+      "default": "Check this product against your exact helmet model and Cardo communicator before adding it to your cart."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Fitment summary"
+    }
+  ]
+}
+{% endschema %}

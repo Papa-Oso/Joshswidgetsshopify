@@ -1,0 +1,23 @@
+{% unless cart.empty? %}
+  <div class="jws-cart-note">
+    <div class="jws-cart-note__inner">
+      <p><strong>Before checkout:</strong> double-check your helmet model and Cardo communicator. Need help? Contact us before ordering.</p>
+      <a class="button-secondary" href="/pages/support">Fitment help</a>
+    </div>
+  </div>
+{% endunless %}
+
+{% schema %}
+{
+  "name": "Cart fitment reminder",
+  "enabled_on": {
+    "templates": ["cart"]
+  },
+  "settings": [],
+  "presets": [
+    {
+      "name": "Cart fitment reminder"
+    }
+  ]
+}
+{% endschema %}
